@@ -28,8 +28,8 @@ int main(){
     fgets(file,sizeof(file),stdin);
     file[strlen(file)-1] = '\0';
     
-    printf("Enter the uncertainty regarding the entered data: ");
-    scanf("%lf",&error);
+    //printf("Enter the uncertainty regarding the entered data: ");
+    //scanf("%lf",&error);
     
     // the number of lines in the file is the number of datas to be saved
     N = linesFile(file);
