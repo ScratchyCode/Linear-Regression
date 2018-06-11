@@ -43,14 +43,14 @@ int main(){
     printf("Enter the uncertainty regarding the entered data: ");
     scanf("%lf",&error);
     
-    // the number of lines in the file is the number of datas to be saved
+    // the file's lines number is the number of points to be saved
     N = linesFile(file);
     if(N <= 2){
         printf("\nError: insufficient data number.\n");
         exit(2);
     }
     
-    // creating the data's arrays
+    // creating data's arrays
     double *x = calloc(N,sizeof(double));
     double *y = calloc(N,sizeof(double));
     if(x == NULL || y == NULL){
@@ -59,13 +59,13 @@ int main(){
             exit(1);
     }
     
+    // reading from file
     FILE *inputFile = fopen(file,"r");
     if(inputFile == NULL){
         perror("\nError");
         exit(1);
     }
     
-    // reading from file
     for(i=0; i<N; i++){
         fscanf(inputFile,"%lf %lf\n",&x[i],&y[i]);
     }
@@ -103,7 +103,7 @@ int main(){
     
     fclose(data);
     
-    // creating data fit and plotting it on graph
+    // creating fit points
     fit(M,Q,x,N);
     
     free(x);
