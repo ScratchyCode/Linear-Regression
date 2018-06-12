@@ -1,5 +1,5 @@
 # Linear-regression
-Performs the linear fit of a data set with the least squares method.
+Performs the linear fit of a dataset with the least squares method.
 
 # Usage
 To run program under GNU/Linux simply execute bash script with: bash start.sh
