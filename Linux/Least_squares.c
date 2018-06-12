@@ -83,8 +83,8 @@ int main(){
     double cov = covariance(x,y,N);
     double cor = correlation(x,y,N);
     
-    //printf("\nCov(X,Y) = %lf",cov);
-    //printf("\nCor(X,Y) = %.3lf",cor);
+    printf("\nCov(X,Y) = %.3lf",cov);
+    printf("\nCor(X,Y) = %.3lf",cor);
     printf("\nBest sigma(Y) = %.3lf\n",sigmaY);
     printf("\nThe best line Y = mX + q that fit data is:");
     printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf\n\n",M,Q,sigmaM,sigmaQ);
@@ -188,10 +188,10 @@ double covariance(double *x, double *y, int N){
     double sum=0;
     
     for(i=0; i<N; i++){
-        sum += (x[i] - meanX) * (y[i] - meanY);
+        sum += ((x[i] - meanX) * (y[i] - meanY));
     }
     
-    return sum/N;
+    return sum/(N-1);
 }
 
 double correlation(double *x, double *y, int N){
