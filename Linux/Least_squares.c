@@ -239,7 +239,7 @@ double linearParamCorrelation(double *x, int N){
     double meanX = mean(x,N);
     double sigmaX = sigma(x,N,meanX);
     
-    return -( sign(meanX) / sqrt(1 + (pow(sigmaX,2)/meanX)) ) ;
+    return -(meanX / sqrt(pow(sigmaX,2) + pow(meanX,2)));
 }
 
 double mean(double array[], int N){
