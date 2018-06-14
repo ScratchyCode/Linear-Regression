@@ -79,7 +79,8 @@ int main(){
     Q = Qbest(N,x,y);
     
     // defining best sigma(Y) and correlation coefficient
-    double sigmaY = fabs(bestSigma(N,x,y,M,Q)); // <-- residuals analysis    double sigmaM = uM(N,sigmaY,x);
+    double sigmaY = fabs(bestSigma(N,x,y,M,Q)); // <-- residuals analysis
+    double sigmaM = uM(N,sigmaY,x);
     double sigmaQ = uQ(N,sigmaY,x);
     double cov = covariance(x,y,N);
     double cor = correlation(x,y,N);
