@@ -15,6 +15,8 @@ double uM(int N, double sigmaY, double *x);
 double uQ(int N, double sigmaY, double *x);
 double covariance(double *x, double *y, int N);
 double correlation(double *x, double *y, int N);
+double linearParamCovariance(double meanX, double sigmaX, double sigmaY, int N, double M, double Q);
+double linearParamCorrelation(double linParamCov, double sigmaM, double sigmaQ);
 double mean(double array[], int N);
 double sigma(double array[], int N, double mean);
 int linesFile(char file[]);
@@ -24,11 +26,11 @@ int main(){
     double M, Q, error;
     char c, file[100];
     
-    printf("\nEnter the name or path of data's file: ");
+    printf("Enter the name or path of file: ");
     fgets(file,sizeof(file),stdin);
     file[strlen(file)-1] = '\0';
     
-    //printf("Enter the uncertainty regarding the entered data: ");
+    //printf("Enter the experimental uncertainty sigma(Y): ");
     //scanf("%lf",&error);
     
     // the file's lines number is the number of points to be saved
@@ -65,17 +67,39 @@ int main(){
     Q = Qbest(N,x,y);
     
     // defining best sigma(Y) and correlation coefficient
-    double sigmaY = bestSigma(N,x,y,M,Q);
+    double sigmaY = bestSigma(N,x,y,M,Q); // <-- residuals analysis
     double sigmaM = uM(N,sigmaY,x);
     double sigmaQ = uQ(N,sigmaY,x);
     double cov = covariance(x,y,N);
     double cor = correlation(x,y,N);
+    double lCov = linearParamCovariance(mean(x,N),sigma(x,N,mean(x,N)),sigmaY,N,M,Q);
+    double lCor = linearParamCorrelation(lCov,sigmaM,sigmaQ);
     
+    printf("\nThe best linear fit Y = mX + q is:");
+    printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf",M,Q,sigmaM,sigmaQ);
+    printf("\nBest sigma(Y) = %.3lf\n",sigmaY);
     printf("\nCov(X,Y) = %.3lf",cov);
     printf("\nCor(X,Y) = %.3lf",cor);
-    printf("\nBest sigma(Y) = %.3lf\n",sigmaY);
-    printf("\nThe best line Y = mX + q that fit data is:");
-    printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf\n\n",M,Q,sigmaM,sigmaQ);
+    printf("\nCov(m,c) = %.3lf",lCov);
+    printf("\nCor(m,c) = %.3lf",lCor);
+    
+    // interpolation and extrapolation
+    int choice;
+    double pointX, pointY, sigmaPointY, alpha;
+    printf("\n\nDo you want to extrapolate a point with the calculated linear regression? (1 = YES | 0 = NO): ");
+    scanf("%d",&choice);
+    if(choice != 1){
+        exit(0);
+    }
+    
+    printf("Insert the point's abscissa: ");
+    scanf("%lf",&pointX);
+    
+    pointY = (M * pointX) + Q;
+    alpha = sqrt(sigma(x,N,mean(x,N)) + (N/pow(sigmaY,2)));
+    sigmaPointY = (1/alpha) * sqrt(pow(pointX,2) - (2*pointX*mean(x,N)) + pow(pointX,2));
+    
+    printf("F(%.3lf) = %.3lf +- %.3lf\n",pointX,pointY,sigmaPointY);
        
     return 0;
 }
@@ -170,6 +194,14 @@ double correlation(double *x, double *y, int N){
     double cov = covariance(x,y,N);
     
     return cov/(sigmaX * sigmaY);
+}
+
+double linearParamCovariance(double meanX, double sigmaX, double sigmaY, int N, double M, double Q){
+    return -( ((meanX)/(pow(sigmaX,2))) * (pow(sigmaY,2)/N) );
+}
+
+double linearParamCorrelation(double linParamCov, double sigmaM, double sigmaQ){
+    return linParamCov / (sigmaM * sigmaQ);
 }
 
 double mean(double array[], int N){
