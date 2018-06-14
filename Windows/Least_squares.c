@@ -16,9 +16,10 @@ double uQ(int N, double sigmaY, double *x);
 double covariance(double *x, double *y, int N);
 double correlation(double *x, double *y, int N);
 double linearParamCovariance(double meanX, double sigmaX, double sigmaY, int N, double M, double Q);
-double linearParamCorrelation(double linParamCov, double sigmaM, double sigmaQ);
+double linearParamCorrelation(double *x, int N);
 double mean(double array[], int N);
 double sigma(double array[], int N, double mean);
+double sign(double x);
 int linesFile(char file[]);
 
 int main(){
@@ -73,7 +74,7 @@ int main(){
     double cov = covariance(x,y,N);
     double cor = correlation(x,y,N);
     double lCov = linearParamCovariance(mean(x,N),sigma(x,N,mean(x,N)),sigmaY,N,M,Q);
-    double lCor = linearParamCorrelation(lCov,sigmaM,sigmaQ);
+    double lCor = linearParamCorrelation(x,N);
     
     printf("\nThe best linear fit Y = mX + q is:");
     printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf",M,Q,sigmaM,sigmaQ);
@@ -200,8 +201,11 @@ double linearParamCovariance(double meanX, double sigmaX, double sigmaY, int N, 
     return -( ((meanX)/(pow(sigmaX,2))) * (pow(sigmaY,2)/N) );
 }
 
-double linearParamCorrelation(double linParamCov, double sigmaM, double sigmaQ){
-    return linParamCov / (sigmaM * sigmaQ);
+double linearParamCorrelation(double *x, int N){
+    double meanX = mean(x,N);
+    double sigmaX = sigma(x,N,meanX);
+    
+    return -( sign(meanX) / sqrt(1 + (pow(sigmaX,2)/meanX)) ) ;
 }
 
 double mean(double array[], int N){
@@ -226,6 +230,14 @@ double sigma(double array[], int N, double mean){
     sigma = sqrt(sum/(N-1));
     
     return sigma;
+}
+
+double sign(double x){
+    if(x >= 0){
+        return 1;
+    }else if(x < 0){
+        return -1;
+    }
 }
 
 int linesFile(char file[]){
