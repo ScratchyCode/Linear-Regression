@@ -102,7 +102,7 @@ int main(){
     printf("\n\nDo you want to extrapolate a point with the calculated linear regression? (1 = YES | 0 = NO): ");
     scanf("%d",&choice);
     if(choice != 1){
-        goto FIT; // <-- sti cazzi
+        goto FIT; // <-- sticazzi
     }
     
     printf("Insert the point's abscissa: ");
