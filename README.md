@@ -3,7 +3,7 @@ Performs the linear fit of a dataset with the least squares method.
 
 Create a file with following format: x y sigma(y)
 
-CAUTION: the file's lines must be equal to the number of points!
+CAUTION: the file's lines number must be equal to the number of points!
 
 # Usage
 To run program under GNU/Linux simply execute bash script with: bash start.sh
