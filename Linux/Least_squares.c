@@ -80,7 +80,7 @@ int main(){
     
     printf("\nThe best linear fit Y = mX + q is:");
     printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf",M,Q,sigmaM,sigmaQ);
-    printf("\nBest sigma(Y) = %.3lf\n",sigmaY);
+    printf("\n\nBest sigma(Y) = %.3lf",sigmaY);
     printf("\nCov(X,Y) = %.3lf",cov);
     printf("\nCor(X,Y) = %.3lf",cor);
     printf("\nCov(m,c) = %.3lf",lCov);
