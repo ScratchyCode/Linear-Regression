@@ -11,6 +11,6 @@ After compile Least_Squares.c with: gcc Least_Squares.c stat.o -lm
 # CAUTION
 Create a file with following format: x y sigma(y)
 
-The file's lines number must be equal to the number of points!
+The file's lines must be equal to the number of points!
 
-The angular coefficient is estimated with weighted averages of weights = sigma(y); do not insert uncertainties sigma(y) = 0
+The angular coefficient is estimated with weighted averages of weights = sigma(y); do not insert experimental uncertainties equal to sigma(y) = 0
