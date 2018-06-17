@@ -71,7 +71,7 @@ int main(){
     rChi2 = chi2 / freedomDegrees;
     
     printf("\nThe best linear fit Y = mX + q is:");
-    printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf",M,Q,sigmaM,sigmaQ);
+    printf("\nm = %.3lf\tsigma(m) = %.3lf\nq = %.3lf\tsigma(q) = %.3lf",M,sigmaM,Q,sigmaQ);
     printf("\n\nBest sigma(Y) = %.3lf",sigmaY);
     printf("\nCov(X,Y) = %.3lf",cov);
     printf("\nCor(X,Y) = %.3lf",cor);
