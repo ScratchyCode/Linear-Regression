@@ -4,4 +4,8 @@ Performs the linear fit of a dataset with the least squares method.
 # Usage
 To run program under GNU/Linux simply execute bash script with: bash start.sh
 
-Under Windows compile only Least_squares.c in Linear-regression/Windows
+Under Windows:
+
+first compile stat.c library with: gcc -c stat.c -lm
+
+after compile Least_Squares.c with: gcc Least_Squares.c stat.o -lm
