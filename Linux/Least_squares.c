@@ -113,7 +113,7 @@ int main(){
     fclose(data);
     
     // creating fit points
-    fit(M,Q,x,N);
+    //fit(M,Q,x,N); // gnuplot feature
     
     free(x);
     free(y);
